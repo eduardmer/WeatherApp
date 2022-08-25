@@ -16,6 +16,6 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideAppDatabase(@ApplicationContext context : Context) : AppDatabase = Room.databaseBuilder<AppDatabase>(context.applicationContext, AppDatabase::class.java, "weather_database").build()
+    fun provideAppDatabase(@ApplicationContext context : Context) : AppDatabase = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "weather_database").build()
 
 }
