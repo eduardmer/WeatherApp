@@ -1,10 +1,11 @@
 package com.weatherapp.ui
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
 import com.weatherapp.data.Repository
+import com.weatherapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -12,14 +13,22 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(val repository: Repository) : ViewModel() {
 
+    private val _result = MutableLiveData<Resource>()
+    val result: LiveData<Resource> = _result
+
     init {
         getWeatherData()
     }
 
     private fun getWeatherData() {
         viewModelScope.launch {
-            val response = repository.getWeather(appid = "37f6ca3eb5a94ec5ff7d9600bef088c8")
-            Log.i("pergjigja", Gson().toJson(response))
+            try {
+                val currentWeather = repository.getCurrentWeather(appid = "37f6ca3eb5a94ec5ff7d9600bef088c8")
+                val response = repository.getWeather(appid = "37f6ca3eb5a94ec5ff7d9600bef088c8")
+                _result.value = Resource.Success(currentWeather, response)
+            } catch (ex : Exception) {
+                _result.value = Resource.Error(ex.message)
+            }
         }
     }
 
