@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+
+    <string name="uv_index">UV INDEX</string>
+    <string name="sunrise">SUNRISE</string>
+    <string name="sunset">Sunset: </string>
+    <string name="wind">WIND</string>
+    <string name="rainfall">RAINFALL</string>
+    <string name="feels_like">FEELS LIKE</string>
+    <string name="humidity">HUMIDITY</string>
 </resources>
