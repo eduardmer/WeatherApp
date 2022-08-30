@@ -6,6 +6,7 @@
     <string name="sunset">Sunset: </string>
     <string name="wind">WIND</string>
     <string name="rainfall">RAINFALL</string>
+    <string name="rainfall_time">in last 24 hours</string>
     <string name="feels_like">FEELS LIKE</string>
     <string name="humidity">HUMIDITY</string>
 </resources>
