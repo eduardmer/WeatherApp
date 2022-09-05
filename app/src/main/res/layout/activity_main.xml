@@ -6,12 +6,13 @@
     <data>
         <variable
             name="data"
-            type="com.weatherapp.data.remote.dto.TodayWeatherResponse" />
+            type="com.weatherapp.data.remote.dto.CurrentWeatherResponse" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/weather_bg"
         tools:context=".ui.MainActivity">
 
         <ScrollView
@@ -34,41 +35,46 @@
                     android:id="@+id/city_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Durresi"
+                    android:textColor="@color/white"
                     android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/temp_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="31"
+                    android:textColor="@color/white"
                     android:textSize="40sp" />
 
                 <TextView
                     android:id="@+id/weather_conditions_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mostly Sunny" />
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:id="@+id/temp_range_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="H:33  L:19" />
+                    android:textColor="@color/white" />
 
                 <androidx.gridlayout.widget.GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    app:columnCount="2">
+                    android:layout_marginBottom="10dp"
+                    app:columnCount="2"
+                    app:columnOrderPreserved="true"
+                    app:rowCount="3"
+                    app:rowOrderPreserved="true">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/bg_today_weather"
-                        app:layout_columnWeight="1">
+                        app:layout_columnWeight="1"
+                        app:layout_rowWeight="1">
 
                         <TextView
                             android:id="@+id/textView7"
@@ -76,9 +82,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
-                            android:drawableStart="@drawable/ic_baseline_wb_sunny_24"
                             android:drawablePadding="10dp"
                             android:text="@string/uv_index"
+                            android:textColor="@color/transparent_white"
+                            app:drawableStartCompat="@drawable/ic_baseline_wb_sunny_24"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,7 +95,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
-                            android:text="0"
+                            android:textColor="@color/white"
                             android:textSize="30sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -98,7 +105,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="Low"
+                            android:textColor="@color/white"
                             android:textSize="20sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/uv_index" />
@@ -111,7 +118,7 @@
                             android:layout_marginTop="20dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
-                            android:text="TextView"
+                            android:textColor="@color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -120,10 +127,11 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:layout_margin="5dp"
                         android:background="@drawable/bg_today_weather"
-                        app:layout_columnWeight="1">
+                        app:layout_columnWeight="1"
+                        app:layout_rowWeight="1">
 
                         <TextView
                             android:id="@+id/textView9"
@@ -134,6 +142,7 @@
                             android:drawableStart="@drawable/ic_sunrise"
                             android:drawablePadding="10dp"
                             android:text="@string/sunrise"
+                            android:textColor="@color/transparent_white"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -143,42 +152,33 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
-                            android:text="0"
+                            android:textColor="@color/white"
                             android:textSize="30sp"
+                            app:date='@{data.sys.sunrise}'
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-                        <TextView
-                            android:id="@+id/textView10"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="Low"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/sunrise_time" />
 
                         <TextView
                             android:id="@+id/sunset_time"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:layout_marginTop="20dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
-                            android:text="TextView"
+                            android:textColor="@color/white"
+                            app:date='@{data.sys.sunset}'
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                            app:layout_constraintStart_toStartOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/bg_today_weather"
-                        app:layout_columnWeight="1">
+                        app:layout_columnWeight="1"
+                        app:layout_rowWeight="1">
 
                         <TextView
                             android:id="@+id/textView11"
@@ -189,6 +189,7 @@
                             android:drawableStart="@drawable/ic_wind"
                             android:drawablePadding="10dp"
                             android:text="@string/wind"
+                            android:textColor="@color/transparent_white"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -198,42 +199,33 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
-                            android:text="0"
+                            android:text="@{String.valueOf(data.wind.speed)}"
+                            android:textColor="@color/white"
                             android:textSize="30sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-                        <TextView
-                            android:id="@+id/textView12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="Low"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/wind_speed" />
 
                         <TextView
                             android:id="@+id/wind_description"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:layout_marginTop="20dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
-                            android:text="TextView"
+                            android:text='@{"Degree: " + data.wind.deg}'
+                            android:textColor="@color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                            app:layout_constraintStart_toStartOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/bg_today_weather"
-                        app:layout_columnWeight="1">
+                        app:layout_columnWeight="1"
+                        app:layout_rowWeight="1">
 
                         <TextView
                             android:id="@+id/textView14"
@@ -244,6 +236,7 @@
                             android:drawableStart="@drawable/ic_baseline_grain_24"
                             android:drawablePadding="10dp"
                             android:text="@string/rainfall"
+                            android:textColor="@color/transparent_white"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -254,6 +247,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
                             android:text="0"
+                            android:textColor="@color/white"
                             android:textSize="30sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -264,6 +258,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:text="@string/rainfall_time"
+                            android:textColor="@color/white"
                             android:textSize="20sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/rainfall" />
@@ -277,6 +272,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
                             android:text="TextView"
+                            android:textColor="@color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -285,10 +281,11 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:background="@drawable/bg_today_weather"
-                        app:layout_columnWeight="1">
+                        app:layout_columnWeight="1"
+                        app:layout_rowWeight="1">
 
                         <TextView
                             android:id="@+id/textView16"
@@ -299,6 +296,7 @@
                             android:drawableStart="@drawable/ic_thermometer"
                             android:drawablePadding="10dp"
                             android:text="@string/feels_like"
+                            android:textColor="@color/transparent_white"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -308,8 +306,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
-                            android:text="0"
+                            android:textColor="@color/white"
                             android:textSize="30sp"
+                            app:celsius="@{data.main.feels_like}"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
@@ -319,6 +318,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:text="Low"
+                            android:textColor="@color/white"
                             android:textSize="20sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/feels_like_temperature" />
@@ -332,6 +332,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
                             android:text="TextView"
+                            android:textColor="@color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -340,10 +341,11 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:layout_margin="5dp"
                         android:background="@drawable/bg_today_weather"
-                        app:layout_columnWeight="1">
+                        app:layout_columnWeight="1"
+                        app:layout_rowWeight="1">
 
                         <TextView
                             android:id="@+id/textView18"
@@ -354,6 +356,7 @@
                             android:drawableStart="@drawable/ic_humidity"
                             android:drawablePadding="10dp"
                             android:text="@string/humidity"
+                            android:textColor="@color/transparent_white"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -363,7 +366,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
-                            android:text="0"
+                            android:text='@{data.main.humidity + " %"}'
+                            android:textColor="@color/white"
                             android:textSize="30sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView18" />
@@ -374,6 +378,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:text="Low"
+                            android:textColor="@color/white"
                             android:textSize="20sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/humidity" />
@@ -387,6 +392,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
                             android:text="TextView"
+                            android:textColor="@color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
