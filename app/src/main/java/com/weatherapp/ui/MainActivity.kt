@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.weatherapp.R
-import com.weatherapp.bindings.ViewBinding
 import com.weatherapp.databinding.ActivityMainBinding
 import com.weatherapp.utils.Resource
 import com.weatherapp.utils.toCelsius
@@ -17,14 +16,16 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
-    private val adapter = TodayWeatherAdapter()
+    private val weatherAdapter = TodayWeatherAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        binding.todayRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.todayRecyclerView.adapter = adapter
+        binding.todayRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = weatherAdapter
+        }
 
         viewModel.result.observe(this) {
             when (it) {
@@ -34,9 +35,7 @@ class MainActivity : AppCompatActivity() {
                     binding.weatherConditionsText.setText(it.currentWeather?.weather?.get(0)?.description)
                     binding.tempRangeText.setText("H:${it.currentWeather?.main?.temp_max.toCelsius()}  L:${it.currentWeather?.main?.temp_min.toCelsius()}")
                     binding.data = it.currentWeather
-                    //ViewBinding.setDate(binding.sunriseTime, it.currentWeather?.sys?.sunrise)
-
-                    adapter.submitList(it.data?.list)
+                    weatherAdapter.submitList(it.data?.list)
                 }
                 is Resource.Error -> Toast.makeText(this, it.message ?: "", Toast.LENGTH_SHORT).show()
             }

@@ -2,32 +2,37 @@ package com.weatherapp.bindings
 
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.weatherapp.DATE_FORMAT_24H
 import com.weatherapp.ICON_BASE_URL
+import com.weatherapp.R
 import com.weatherapp.utils.toCelsius
 import java.text.SimpleDateFormat
 import java.util.*
 
-object ViewBinding {
+@BindingAdapter("background")
+fun ConstraintLayout.setBackground(sunsetTime: Long) {
+    setBackgroundResource(if(System.currentTimeMillis() > sunsetTime * 1000) R.drawable.bg_night else R.drawable.bg_day)
+}
 
-    @JvmStatic
-    @BindingAdapter("date")
-    fun setDate(textView: TextView, date: Long) {
-        textView.text = SimpleDateFormat(DATE_FORMAT_24H, Locale.getDefault()).format(Date(date * 1000))
-    }
+@BindingAdapter("date")
+fun TextView.setDate(date: Long) {
+    text = SimpleDateFormat(DATE_FORMAT_24H, Locale.getDefault()).format(Date(date * 1000))
+}
 
-    @JvmStatic
-    @BindingAdapter("celsius")
-    fun setTemp(textView: TextView, temp: Double) {
-        textView.text = temp.toCelsius()
-    }
+@BindingAdapter("text","date24H")
+fun TextView.setTextAndDate(text: String, date: Long) {
+    this.text = text + SimpleDateFormat(DATE_FORMAT_24H, Locale.getDefault()).format(Date(date * 1000))
+}
 
-    @JvmStatic
-    @BindingAdapter("image")
-    fun setImage(imageView: ImageView, url: String) {
-        Glide.with(imageView).load("$ICON_BASE_URL$url.png").into(imageView)
-    }
+@BindingAdapter("celsius")
+fun TextView.setTemp(temp: Double) {
+    text = temp.toCelsius()
+}
 
+@BindingAdapter("image")
+fun ImageView.setImage(url: String) {
+    Glide.with(this).load("$ICON_BASE_URL$url.png").into(this)
 }
