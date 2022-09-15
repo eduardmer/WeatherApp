@@ -12,9 +12,9 @@ import com.weatherapp.utils.toCelsius
 import java.text.SimpleDateFormat
 import java.util.*
 
-@BindingAdapter("background")
-fun ConstraintLayout.setBackground(sunsetTime: Long) {
-    setBackgroundResource(if(System.currentTimeMillis() > sunsetTime * 1000) R.drawable.bg_night else R.drawable.bg_day)
+@BindingAdapter("sunrise", "sunset")
+fun ConstraintLayout.setBackground(sunriseTime: Long, sunsetTime: Long) {
+    setBackgroundResource(if(System.currentTimeMillis() < sunriseTime * 1000 || System.currentTimeMillis() > sunsetTime * 1000) R.drawable.bg_night else R.drawable.bg_day)
 }
 
 @BindingAdapter("date")

@@ -1,5 +1,6 @@
 package com.weatherapp.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,6 +30,13 @@ class MainViewModel @Inject constructor(val repository: Repository) : ViewModel(
             } catch (ex : Exception) {
                 _result.value = Resource.Error(ex.message)
             }
+        }
+    }
+
+    fun getCurrentLocation() {
+        viewModelScope.launch {
+            val location = repository.getCurrentLocation()
+            Log.i("location", "${location?.latitude} ${location?.longitude}")
         }
     }
 
