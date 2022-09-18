@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.weatherapp.R
+import com.weatherapp.data.local.City
 import com.weatherapp.databinding.ActivityMainBinding
 import com.weatherapp.utils.Resource
 import com.weatherapp.utils.toCelsius
@@ -24,6 +25,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        val cities = ArrayList<City>()
+        cities.add(City(1, "Tirane",12.6447474,57.738484))
+        cities.add(City(2, "Durres", 15.54566, 23.545667))
+        cities.add(City(3, "Kavaje", 14.5456, 13544.656))
+
+        val cityAdapter = CityAdapter(this, R.layout.city_item, cities)
+        binding.cities.setAdapter(cityAdapter)
 
         binding.findLocation.setOnClickListener {
             when {

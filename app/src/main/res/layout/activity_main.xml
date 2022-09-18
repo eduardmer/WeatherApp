@@ -16,6 +16,24 @@
         app:sunset="@{data.sys.sunset}"
         tools:context=".ui.MainActivity">
 
+        <AutoCompleteTextView
+            android:id="@+id/cities"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_today_weather"
+            android:completionThreshold="1"
+            android:dropDownHeight="300dp"
+            android:hint="@string/select_city"
+            android:minHeight="48dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/find_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="match_parent"
@@ -23,7 +41,7 @@
             app:layout_constraintBottom_toTopOf="@+id/today_recycler_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/cities">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -108,11 +126,11 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
                             android:textColor="@color/white"
-                            app:text='@{@string/sunset}'
                             app:date24H='@{data.sys.sunset}'
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:text='@{@string/sunset}' />
                     </com.squareconstraintlayout.SquareConstraintLayout>
 
                     <com.squareconstraintlayout.SquareConstraintLayout
@@ -132,9 +150,9 @@
                             android:drawablePadding="10dp"
                             android:text="@string/wind"
                             android:textColor="@color/transparent_white"
+                            app:drawableStartCompat="@drawable/ic_wind"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:drawableStartCompat="@drawable/ic_wind" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/wind_speed"
@@ -179,9 +197,9 @@
                             android:drawablePadding="10dp"
                             android:text="@string/humidity"
                             android:textColor="@color/transparent_white"
+                            app:drawableStartCompat="@drawable/ic_humidity"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:drawableStartCompat="@drawable/ic_humidity" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/humidity"
@@ -225,9 +243,9 @@
                             android:drawablePadding="10dp"
                             android:text="@string/rainfall"
                             android:textColor="@color/transparent_white"
+                            app:drawableStartCompat="@drawable/ic_baseline_grain_24"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:drawableStartCompat="@drawable/ic_baseline_grain_24" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/rainfall"
@@ -271,9 +289,9 @@
                             android:drawablePadding="10dp"
                             android:text="@string/feels_like"
                             android:textColor="@color/transparent_white"
+                            app:drawableStartCompat="@drawable/ic_thermometer"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:drawableStartCompat="@drawable/ic_thermometer" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/feels_like_temperature"
@@ -317,9 +335,9 @@
                             android:drawablePadding="10dp"
                             android:text="@string/pressure"
                             android:textColor="@color/transparent_white"
+                            app:drawableStartCompat="@drawable/ic_pressure"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:drawableStartCompat="@drawable/ic_pressure" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/pressure"

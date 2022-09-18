@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">WeatherApp</string>
 
+    <string name="select_city">Select a city…</string>
+
     <string name="pressure">PRESSURE</string>
     <string name="sunrise">SUNRISE</string>
     <string name="sunset">Sunset: </string>
