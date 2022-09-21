@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option java_package = "com.weatherapp";
+option java_multiple_files = true;
+
+message CityPreferences {
+  string city = 1;
+  double lng = 2;
+  double lat = 3;
+}
