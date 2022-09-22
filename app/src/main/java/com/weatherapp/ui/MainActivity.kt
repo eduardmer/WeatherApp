@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.weatherapp.R
@@ -27,18 +25,17 @@ class MainActivity : AppCompatActivity() {
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         val cities = ArrayList<City>()
-        cities.add(City(1, "Tirane",12.6447474,57.738484))
-        cities.add(City(2, "Durres", 15.54566, 23.545667))
-        cities.add(City(3, "Kavaje", 14.5456, 13544.656))
+        cities.add(City(1, "Tirane",19.819025,41.327953))
+        cities.add(City(2, "Durres", 19.456469, 41.324590))
+        cities.add(City(3, "Kavaje", 19.562760, 41.184453))
 
         val cityAdapter = CityAdapter(this, R.layout.city_item, cities)
-        binding.cities.setAdapter(cityAdapter)
-
-        binding.findLocation.setOnClickListener {
-            when {
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ->
-                    viewModel.getCurrentLocation()
-                else -> ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 1)
+        binding.cities.apply {
+            setAdapter(cityAdapter)
+            setOnItemClickListener{adapter, view, position, id ->
+                val selected = cityAdapter.getItem(position)
+                if (selected != null)
+                    viewModel.updateSelectedCity(selected)
             }
         }
 

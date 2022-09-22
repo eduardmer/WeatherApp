@@ -5,9 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.weatherapp.CityPreferences
 import com.weatherapp.data.Repository
+import com.weatherapp.data.local.City
 import com.weatherapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,7 +21,21 @@ class MainViewModel @Inject constructor(val repository: Repository) : ViewModel(
     val result: LiveData<Resource> = _result
 
     init {
-        getWeatherData()
+        getWeath()
+    }
+
+    private fun getWeath() {
+        viewModelScope.launch {
+            repository.weather.collect {
+                _result.value = it
+            }
+        }
+    }
+
+    fun updateSelectedCity(city: City) {
+        viewModelScope.launch {
+            repository.updateSelectedCity(city)
+        }
     }
 
     private fun getWeatherData() {

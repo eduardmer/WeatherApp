@@ -18,19 +18,23 @@
 
         <AutoCompleteTextView
             android:id="@+id/cities"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/bg_today_weather"
             android:completionThreshold="1"
-            android:dropDownHeight="300dp"
+            android:dropDownAnchor="@+id/cities"
+            android:dropDownWidth="match_parent"
+            android:dropDownHeight="wrap_content"
             android:hint="@string/select_city"
+            android:maxLines="1"
             android:minHeight="48dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            app:layout_constraintEnd_toStartOf="@+id/find_location"
+            android:popupBackground="@drawable/bg_spinner"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,6 +81,7 @@
                     android:textColor="@color/white" />
 
                 <androidx.gridlayout.widget.GridLayout
+                    android:id="@+id/grid_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
@@ -369,18 +374,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <ImageButton
-            android:id="@+id/find_location"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/bg_today_weather"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_add_location_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

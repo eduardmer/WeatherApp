@@ -1,11 +1,10 @@
-package com.weatherapp.data
+package com.weatherapp.data.local
 
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
 import androidx.datastore.dataStore
 import com.weatherapp.CityPreferences
-import com.weatherapp.data.local.City
 import java.io.InputStream
 import java.io.OutputStream
 

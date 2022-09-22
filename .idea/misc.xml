@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/HP/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/bg_spinner.xml" value="0.246" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/bg_today_weather.xml" value="0.248" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/ic_baseline_add_location_24.xml" value="0.246" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/ic_baseline_grain_24.xml" value="0.2455" />
@@ -18,6 +19,7 @@
         <entry key="..\:/Users/HP/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/item_card.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/today_weather_item.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/weather_item.xml" value="0.264" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/wweather_item.xml" value="0.1983695652173913" />
       </map>
     </option>
   </component>
