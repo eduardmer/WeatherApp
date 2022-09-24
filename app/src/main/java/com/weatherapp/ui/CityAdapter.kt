@@ -11,7 +11,7 @@ import com.weatherapp.R
 import com.weatherapp.data.local.City
 import java.util.ArrayList
 
-class CityAdapter(private val mContext: Context, val resource: Int, val cities: MutableList<City>) :
+class CityAdapter(private val mContext: Context, val resource: Int, val cities: ArrayList<City>) :
     ArrayAdapter<City>(mContext, resource, cities) {
 
     private val filteredCities = ArrayList<City>()
@@ -20,7 +20,7 @@ class CityAdapter(private val mContext: Context, val resource: Int, val cities: 
         filteredCities.addAll(cities)
     }
 
-    override fun getItem(position: Int): City? {
+    override fun getItem(position: Int): City {
         return filteredCities.get(position)
     }
 
@@ -35,9 +35,17 @@ class CityAdapter(private val mContext: Context, val resource: Int, val cities: 
         val cityTextView = myView?.findViewById<TextView>(R.id.city)
         val coordinates = myView?.findViewById<TextView>(R.id.coordinates)
         val city = getItem(position)
-        cityTextView?.text = city?.city
-        coordinates?.text = "${city?.lng}, ${city?.lat}"
+        cityTextView?.text = city.city
+        coordinates?.text = "${city.lng}, ${city.lat}"
         return myView!!
+    }
+
+    fun updateData(cities: ArrayList<City>) {
+        this.cities.clear()
+        this.filteredCities.clear()
+        this.cities.addAll(cities)
+        this.filteredCities.addAll(this.cities)
+        notifyDataSetChanged()
     }
 
     override fun getCount(): Int {
@@ -53,7 +61,7 @@ class CityAdapter(private val mContext: Context, val resource: Int, val cities: 
                     suggestions.addAll(cities)
                 else {
                     for (city in cities) {
-                        if (city?.city.contains(p0!!, true))
+                        if (city.city.contains(p0!!, true))
                             suggestions.add(city)
                     }
                 }

@@ -5,12 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.weatherapp.CityPreferences
 import com.weatherapp.data.Repository
 import com.weatherapp.data.local.City
 import com.weatherapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,9 +17,11 @@ class MainViewModel @Inject constructor(val repository: Repository) : ViewModel(
 
     private val _result = MutableLiveData<Resource>()
     val result: LiveData<Resource> = _result
+    val allCities = MutableLiveData<List<City>>()
 
     init {
         getWeath()
+        getAllCities()
     }
 
     private fun getWeath() {
@@ -29,6 +29,12 @@ class MainViewModel @Inject constructor(val repository: Repository) : ViewModel(
             repository.weather.collect {
                 _result.value = it
             }
+        }
+    }
+
+    private fun getAllCities() {
+        viewModelScope.launch {
+            allCities.value = repository.getAllCities()
         }
     }
 

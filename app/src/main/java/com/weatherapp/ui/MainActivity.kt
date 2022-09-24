@@ -24,24 +24,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        val cities = ArrayList<City>()
-        cities.add(City(1, "Tirane",19.819025,41.327953))
-        cities.add(City(2, "Durres", 19.456469, 41.324590))
-        cities.add(City(3, "Kavaje", 19.562760, 41.184453))
-
-        val cityAdapter = CityAdapter(this, R.layout.city_item, cities)
+        val cityAdapter = CityAdapter(this, R.layout.city_item, ArrayList<City>())
         binding.cities.apply {
             setAdapter(cityAdapter)
             setOnItemClickListener{adapter, view, position, id ->
-                val selected = cityAdapter.getItem(position)
-                if (selected != null)
-                    viewModel.updateSelectedCity(selected)
+                viewModel.updateSelectedCity(cityAdapter.getItem(position))
             }
         }
 
         binding.todayRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = weatherAdapter
+        }
+
+        viewModel.allCities.observe(this) {
+            cityAdapter.updateData(it as java.util.ArrayList<City>)
         }
 
         viewModel.result.observe(this) {
