@@ -1,22 +1,24 @@
 package com.weatherapp.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.weatherapp.data.Repository
 import com.weatherapp.data.local.City
-import com.weatherapp.utils.Resource
+import com.weatherapp.data.remote.dto.CurrentWeatherResponse
+import com.weatherapp.data.remote.dto.TodayWeatherResponse
+import com.weatherapp.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.ArrayList
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(val repository: Repository) : ViewModel() {
 
-    private val _result = MutableLiveData<Resource>()
-    val result: LiveData<Resource> = _result
+    private val _result = MutableLiveData<WeatherScreenUiState>()
+    val result: LiveData<WeatherScreenUiState> = _result
     val allCities = MutableLiveData<List<City>>()
 
     init {
@@ -27,7 +29,11 @@ class MainViewModel @Inject constructor(val repository: Repository) : ViewModel(
     private fun getWeath() {
         viewModelScope.launch {
             repository.weather.collect {
-                _result.value = it
+                when(it) {
+                    is Result.Success -> _result.value = WeatherScreenUiState.Success(it.currentWeather, it.todayWeather)
+                    is Result.Error -> _result.value = WeatherScreenUiState.Error(it.message)
+                    is Result.Loading -> _result.value = WeatherScreenUiState.Loading
+                }
             }
         }
     }
@@ -44,23 +50,10 @@ class MainViewModel @Inject constructor(val repository: Repository) : ViewModel(
         }
     }
 
-    private fun getWeatherData() {
-        viewModelScope.launch {
-            try {
-                val currentWeather = repository.getCurrentWeather(appid = "37f6ca3eb5a94ec5ff7d9600bef088c8")
-                val response = repository.getWeather(appid = "37f6ca3eb5a94ec5ff7d9600bef088c8")
-                _result.value = Resource.Success(currentWeather, response)
-            } catch (ex : Exception) {
-                _result.value = Resource.Error(ex.message)
-            }
-        }
-    }
+}
 
-    fun getCurrentLocation() {
-        viewModelScope.launch {
-            val location = repository.getCurrentLocation()
-            Log.i("location", "${location?.latitude} ${location?.longitude}")
-        }
-    }
-
+sealed interface WeatherScreenUiState {
+    data class Success(val currentWeather: CurrentWeatherResponse, val todayWeather: TodayWeatherResponse) : WeatherScreenUiState
+    data class Error(val message: String?) : WeatherScreenUiState
+    object Loading : WeatherScreenUiState
 }

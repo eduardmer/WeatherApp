@@ -11,7 +11,7 @@ import com.weatherapp.R
 import com.weatherapp.data.local.City
 import java.util.ArrayList
 
-class CityAdapter(private val mContext: Context, val resource: Int, val cities: ArrayList<City>) :
+class CityAdapter(private val mContext: Context, private val resource: Int, val cities: ArrayList<City>) :
     ArrayAdapter<City>(mContext, resource, cities) {
 
     private val filteredCities = ArrayList<City>()
@@ -21,11 +21,11 @@ class CityAdapter(private val mContext: Context, val resource: Int, val cities: 
     }
 
     override fun getItem(position: Int): City {
-        return filteredCities.get(position)
+        return filteredCities[position]
     }
 
     override fun getItemId(position: Int): Long {
-        return filteredCities.get(position).id
+        return filteredCities[position].id
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -61,7 +61,7 @@ class CityAdapter(private val mContext: Context, val resource: Int, val cities: 
                     suggestions.addAll(cities)
                 else {
                     for (city in cities) {
-                        if (city.city.contains(p0!!, true))
+                        if (city.city.contains(p0, true))
                             suggestions.add(city)
                     }
                 }

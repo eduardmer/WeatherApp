@@ -1,8 +1,5 @@
 package com.weatherapp.di
 
-import android.app.Application
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.weatherapp.BASE_URL
 import com.weatherapp.data.remote.WeatherService
 import dagger.Module
@@ -39,11 +36,6 @@ object NetworkModule {
     @Singleton
     fun provideWeatherService(retrofit : Retrofit) : WeatherService {
         return retrofit.create(WeatherService::class.java)
-    }
-
-    @Provides
-    fun provideLocationProvider(application: Application): FusedLocationProviderClient {
-        return LocationServices.getFusedLocationProviderClient(application)
     }
 
 }

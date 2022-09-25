@@ -7,6 +7,7 @@
         <variable
             name="data"
             type="com.weatherapp.data.remote.dto.CurrentWeatherResponse" />
+        <import type="com.weatherapp.utils.ExtensionKt"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +24,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/bg_today_weather"
+            android:background="@drawable/bg_search_edit_text"
             android:completionThreshold="1"
             android:dropDownAnchor="@+id/cities"
             android:dropDownWidth="match_parent"
@@ -59,12 +60,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
+                    android:text="@{data.name}"
                     android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/temp_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:celsius="@{data.main.temp}"
                     android:textColor="@color/white"
                     android:textSize="40sp" />
 
@@ -72,6 +75,7 @@
                     android:id="@+id/weather_conditions_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{data.weather[0].description}"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -374,6 +378,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
