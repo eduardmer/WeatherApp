@@ -5,8 +5,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.weatherapp.DATE_FORMAT_24H
-import com.weatherapp.ICON_BASE_URL
+import com.weatherapp.utils.DATE_FORMAT_24H
+import com.weatherapp.utils.ICON_BASE_URL
 import com.weatherapp.R
 import com.weatherapp.utils.toCelsius
 import java.text.SimpleDateFormat

@@ -11,10 +11,10 @@ import com.weatherapp.R
 import com.weatherapp.data.local.City
 import java.util.ArrayList
 
-class CityAdapter(private val mContext: Context, private val resource: Int, val cities: ArrayList<City>) :
+class CityAdapter(private val mContext: Context, private val resource: Int, val cities: MutableList<City>) :
     ArrayAdapter<City>(mContext, resource, cities) {
 
-    private val filteredCities = ArrayList<City>()
+    private val filteredCities = mutableListOf<City>()
 
     init {
         filteredCities.addAll(cities)

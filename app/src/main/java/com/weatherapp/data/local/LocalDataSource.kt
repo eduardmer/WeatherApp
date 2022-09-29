@@ -10,7 +10,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CityLocalDataSource @Inject constructor(private val dataStore: DataStore<CityPreferences>, private val inputStream: InputStream) {
+class LocalDataSource @Inject constructor(private val dataStore: DataStore<CityPreferences>, private val inputStream: InputStream) {
 
     val cityPreferences: Flow<CityPreferences> = dataStore.data
 
@@ -23,7 +23,7 @@ class CityLocalDataSource @Inject constructor(private val dataStore: DataStore<C
     suspend fun getCities(): List<City> {
         val cities = inputStream.bufferedReader().use { it.readText() }
         val myType = object : TypeToken<List<City>>() {}.type
-        return Gson().fromJson<List<City>>(cities, myType)
+        return Gson().fromJson(cities, myType)
     }
 
 }

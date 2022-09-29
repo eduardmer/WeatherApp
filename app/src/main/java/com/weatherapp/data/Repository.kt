@@ -1,7 +1,7 @@
 package com.weatherapp.data
 
 import com.weatherapp.data.local.City
-import com.weatherapp.data.local.CityLocalDataSource
+import com.weatherapp.data.local.LocalDataSource
 import com.weatherapp.data.remote.WeatherService
 import com.weatherapp.utils.Result
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +12,7 @@ import kotlinx.coroutines.withContext
 import java.lang.Exception
 import javax.inject.Inject
 
-class Repository @Inject constructor(val service: WeatherService, val cityLocalDataSource: CityLocalDataSource) {
+class Repository @Inject constructor(val service: WeatherService, val cityLocalDataSource: LocalDataSource) {
 
     suspend fun getAllCities(): List<City> =
         withContext(Dispatchers.Default) {
@@ -22,13 +22,16 @@ class Repository @Inject constructor(val service: WeatherService, val cityLocalD
     val weather: Flow<Result> = cityLocalDataSource.cityPreferences.map { city ->
         try {
             val currentWeatherResponse = service.getCurrentWeather(city.lat, city.lng, "37f6ca3eb5a94ec5ff7d9600bef088c8")
-            val todayWeatherResponse = service.getWeather(city.lat, city.lng, "37f6ca3eb5a94ec5ff7d9600bef088c8")
+            val todayWeatherResponse = service.getTodayWeather(city.lat, city.lng, "37f6ca3eb5a94ec5ff7d9600bef088c8")
             Result.Success(currentWeatherResponse, todayWeatherResponse)
         } catch (ex: Exception) {
             Result.Error(ex.toString())
         }
     }.onStart { emit(Result.Loading) }
 
-    suspend fun updateSelectedCity(city: City) = cityLocalDataSource.updateCityPreferences(city)
+    suspend fun updateSelectedCity(city: City) =
+        withContext(Dispatchers.IO) {
+            cityLocalDataSource.updateCityPreferences(city)
+        }
 
 }

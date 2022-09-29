@@ -214,24 +214,13 @@
                             android:id="@+id/humidity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
                             android:text='@{data.main.humidity + " %"}'
                             android:textColor="@color/white"
                             android:textSize="30sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-                        <TextView
-                            android:id="@+id/textView19"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="Low"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/humidity" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </com.squareconstraintlayout.SquareConstraintLayout>
 
@@ -306,24 +295,13 @@
                             android:id="@+id/feels_like_temperature"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
                             android:textColor="@color/white"
                             android:textSize="30sp"
                             app:celsius="@{data.main.feels_like}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView16" />
-
-                        <TextView
-                            android:id="@+id/textView17"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="Low"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/feels_like_temperature" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </com.squareconstraintlayout.SquareConstraintLayout>
 

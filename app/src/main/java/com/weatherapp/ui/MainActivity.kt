@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        val cityAdapter = CityAdapter(this, R.layout.city_item, ArrayList())
+        val cityAdapter = CityAdapter(this, R.layout.city_item, mutableListOf())
         binding.cities.apply {
             setAdapter(cityAdapter)
             setOnItemClickListener{_, _, position, _ ->

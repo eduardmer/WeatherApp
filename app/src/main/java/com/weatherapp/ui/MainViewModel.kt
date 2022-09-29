@@ -11,22 +11,22 @@ import com.weatherapp.data.remote.dto.TodayWeatherResponse
 import com.weatherapp.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.ArrayList
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(val repository: Repository) : ViewModel() {
+class MainViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     private val _result = MutableLiveData<WeatherScreenUiState>()
     val result: LiveData<WeatherScreenUiState> = _result
-    val allCities = MutableLiveData<List<City>>()
+    private val _allCities = MutableLiveData<List<City>>()
+    val allCities: LiveData<List<City>> = _allCities
 
     init {
-        getWeath()
+        getWeather()
         getAllCities()
     }
 
-    private fun getWeath() {
+    private fun getWeather() {
         viewModelScope.launch {
             repository.weather.collect {
                 when(it) {
@@ -40,7 +40,7 @@ class MainViewModel @Inject constructor(val repository: Repository) : ViewModel(
 
     private fun getAllCities() {
         viewModelScope.launch {
-            allCities.value = repository.getAllCities()
+            _allCities.value = repository.getAllCities()
         }
     }
 

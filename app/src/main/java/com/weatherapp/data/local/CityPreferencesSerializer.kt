@@ -10,7 +10,11 @@ import java.io.OutputStream
 
 object CityPreferencesSerializer : Serializer<CityPreferences> {
 
-    override val defaultValue: CityPreferences = CityPreferences.getDefaultInstance()
+    override val defaultValue: CityPreferences = CityPreferences.newBuilder()
+        .setCity("Tirana")
+        .setLat(41.3300)
+        .setLng(19.8200)
+        .build()
 
     override suspend fun readFrom(input: InputStream): CityPreferences {
         return CityPreferences.parseFrom(input)

@@ -1,6 +1,6 @@
 package com.weatherapp.di
 
-import com.weatherapp.BASE_URL
+import com.weatherapp.utils.BASE_URL
 import com.weatherapp.data.remote.WeatherService
 import dagger.Module
 import dagger.Provides
