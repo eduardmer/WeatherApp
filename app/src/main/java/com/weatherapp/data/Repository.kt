@@ -6,6 +6,7 @@ import com.weatherapp.data.remote.WeatherService
 import com.weatherapp.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.withContext
@@ -28,10 +29,8 @@ class Repository @Inject constructor(val service: WeatherService, val cityLocalD
             Result.Error(ex.toString())
         }
     }.onStart { emit(Result.Loading) }
+        .catch {emit(Result.Error(it.message))}
 
-    suspend fun updateSelectedCity(city: City) =
-        withContext(Dispatchers.IO) {
-            cityLocalDataSource.updateCityPreferences(city)
-        }
+    suspend fun updateSelectedCity(city: City) = cityLocalDataSource.updateCityPreferences(city)
 
 }

@@ -4,7 +4,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
+import coil.load
 import com.weatherapp.utils.DATE_FORMAT_24H
 import com.weatherapp.utils.ICON_BASE_URL
 import com.weatherapp.R
@@ -34,5 +34,7 @@ fun TextView.setTemp(temp: Double) {
 
 @BindingAdapter("image")
 fun ImageView.setImage(url: String) {
-    Glide.with(this).load("$ICON_BASE_URL$url.png").into(this)
+    this.load("$ICON_BASE_URL$url.png") {
+        placeholder(R.drawable.ic_humidity)
+    }
 }

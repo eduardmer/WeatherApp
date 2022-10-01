@@ -20,7 +20,7 @@ class LocalDataSource @Inject constructor(private val dataStore: DataStore<CityP
         }
     }
 
-    suspend fun getCities(): List<City> {
+    fun getCities(): List<City> {
         val cities = inputStream.bufferedReader().use { it.readText() }
         val myType = object : TypeToken<List<City>>() {}.type
         return Gson().fromJson(cities, myType)
