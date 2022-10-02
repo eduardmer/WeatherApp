@@ -10,33 +10,31 @@ import com.weatherapp.data.remote.dto.CurrentWeatherResponse
 import com.weatherapp.data.remote.dto.TodayWeatherResponse
 import com.weatherapp.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    private val _result = MutableLiveData<WeatherScreenUiState>()
-    val result: LiveData<WeatherScreenUiState> = _result
     private val _allCities = MutableLiveData<List<City>>()
     val allCities: LiveData<List<City>> = _allCities
 
     init {
-        getWeather()
         getAllCities()
     }
 
-    private fun getWeather() {
-        viewModelScope.launch {
-            repository.weather.collect {
-                when(it) {
-                    is Result.Success -> _result.value = WeatherScreenUiState.Success(it.currentWeather, it.todayWeather)
-                    is Result.Error -> _result.value = WeatherScreenUiState.Error(it.message)
-                    is Result.Loading -> _result.value = WeatherScreenUiState.Loading
-                }
-            }
+    val weather: StateFlow<WeatherScreenUiState> = repository.weather.map {
+        when(it) {
+            is Result.Success -> WeatherScreenUiState.Success(it.currentWeather, it.todayWeather)
+            is Result.Error -> WeatherScreenUiState.Error(it.message)
+            Result.Loading -> WeatherScreenUiState.Loading
         }
-    }
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        WeatherScreenUiState.Loading
+    )
 
     private fun getAllCities() {
         viewModelScope.launch {

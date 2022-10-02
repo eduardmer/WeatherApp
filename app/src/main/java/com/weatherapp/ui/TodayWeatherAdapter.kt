@@ -10,7 +10,7 @@ import com.weatherapp.databinding.TodayWeatherItemBinding
 
 class TodayWeatherAdapter : ListAdapter<WeatherData, TodayWeatherAdapter.MyViewHolder>(DiffCallback()) {
 
-    class MyViewHolder(val binding: TodayWeatherItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: TodayWeatherItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: WeatherData) {
             binding.data = item
             binding.executePendingBindings()
@@ -34,7 +34,6 @@ class TodayWeatherAdapter : ListAdapter<WeatherData, TodayWeatherAdapter.MyViewH
         override fun areContentsTheSame(oldItem: WeatherData, newItem: WeatherData): Boolean {
             return oldItem == newItem
         }
-
     }
 
 }

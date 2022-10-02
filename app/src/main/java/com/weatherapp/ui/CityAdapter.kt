@@ -1,17 +1,17 @@
 package com.weatherapp.ui
 
-import android.app.Activity
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Filter
-import android.widget.TextView
-import com.weatherapp.R
+import androidx.databinding.DataBindingUtil
 import com.weatherapp.data.local.City
+import com.weatherapp.databinding.CityItemBinding
 import java.util.ArrayList
 
-class CityAdapter(private val mContext: Context, private val resource: Int, val cities: MutableList<City>) :
+class CityAdapter(mContext: Context, private val resource: Int, val cities: MutableList<City>) :
     ArrayAdapter<City>(mContext, resource, cities) {
 
     private val filteredCities = mutableListOf<City>()
@@ -24,20 +24,14 @@ class CityAdapter(private val mContext: Context, private val resource: Int, val 
         return filteredCities[position]
     }
 
-    override fun getItemId(position: Int): Long {
-        return filteredCities[position].id
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var myView = convertView
-        if (myView == null)
-            myView = (mContext as Activity).layoutInflater.inflate(resource, parent, false)
-        val cityTextView = myView?.findViewById<TextView>(R.id.city)
-        val coordinates = myView?.findViewById<TextView>(R.id.coordinates)
-        val city = getItem(position)
-        cityTextView?.text = city.city
-        coordinates?.text = "${city.lng}, ${city.lat}"
-        return myView!!
+    override fun getView(position: Int, view: View?, parent: ViewGroup): View {
+        val binding: CityItemBinding? = if (view == null) {
+            DataBindingUtil.inflate(LayoutInflater.from(context), resource, parent, false)
+        } else {
+            DataBindingUtil.getBinding(view)
+        }
+        binding?.data = getItem(position)
+        return binding?.root!!
     }
 
     fun updateData(cities: ArrayList<City>) {
