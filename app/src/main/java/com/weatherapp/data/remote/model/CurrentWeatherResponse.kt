@@ -1,4 +1,4 @@
-package com.weatherapp.data.remote.dto
+package com.weatherapp.data.remote.model
 
 data class CurrentWeatherResponse(val code: Int,
                                   val message: String,

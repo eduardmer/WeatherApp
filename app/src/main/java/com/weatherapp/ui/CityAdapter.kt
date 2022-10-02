@@ -7,20 +7,20 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Filter
 import androidx.databinding.DataBindingUtil
-import com.weatherapp.data.local.City
+import com.weatherapp.data.local.model.CityDto
 import com.weatherapp.databinding.CityItemBinding
 import java.util.ArrayList
 
-class CityAdapter(mContext: Context, private val resource: Int, val cities: MutableList<City>) :
-    ArrayAdapter<City>(mContext, resource, cities) {
+class CityAdapter(mContext: Context, private val resource: Int, val cities: MutableList<CityDto>) :
+    ArrayAdapter<CityDto>(mContext, resource, cities) {
 
-    private val filteredCities = mutableListOf<City>()
+    private val filteredCities = mutableListOf<CityDto>()
 
     init {
         filteredCities.addAll(cities)
     }
 
-    override fun getItem(position: Int): City {
+    override fun getItem(position: Int): CityDto {
         return filteredCities[position]
     }
 
@@ -34,7 +34,7 @@ class CityAdapter(mContext: Context, private val resource: Int, val cities: Muta
         return binding?.root!!
     }
 
-    fun updateData(cities: ArrayList<City>) {
+    fun updateData(cities: List<CityDto>) {
         this.cities.clear()
         this.filteredCities.clear()
         this.cities.addAll(cities)
@@ -50,7 +50,7 @@ class CityAdapter(mContext: Context, private val resource: Int, val cities: Muta
         return object : Filter() {
             override fun performFiltering(p0: CharSequence?): FilterResults {
                 val results = FilterResults()
-                val suggestions = ArrayList<City>()
+                val suggestions = ArrayList<CityDto>()
                 if (p0.isNullOrEmpty())
                     suggestions.addAll(cities)
                 else {
@@ -67,7 +67,7 @@ class CityAdapter(mContext: Context, private val resource: Int, val cities: Muta
             override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
                 filteredCities.clear()
                 for (result in p1?.values as List<*>) {
-                    if (result is City)
+                    if (result is CityDto)
                         filteredCities.add(result)
                 }
                 notifyDataSetChanged()

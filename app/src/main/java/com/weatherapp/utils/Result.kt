@@ -1,7 +1,7 @@
 package com.weatherapp.utils
 
-import com.weatherapp.data.remote.dto.CurrentWeatherResponse
-import com.weatherapp.data.remote.dto.TodayWeatherResponse
+import com.weatherapp.data.remote.model.CurrentWeatherResponse
+import com.weatherapp.data.remote.model.TodayWeatherResponse
 
 sealed interface Result {
     data class Success(val currentWeather: CurrentWeatherResponse, val todayWeather: TodayWeatherResponse) : Result

@@ -1,4 +1,4 @@
-package com.weatherapp.data.remote.dto
+package com.weatherapp.data.remote.model
 
 data class TodayWeatherResponse(val cod: String,
                                 val message: String,

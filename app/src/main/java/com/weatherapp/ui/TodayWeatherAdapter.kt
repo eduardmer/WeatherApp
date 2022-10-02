@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.weatherapp.data.remote.dto.WeatherData
+import com.weatherapp.data.remote.model.WeatherData
 import com.weatherapp.databinding.TodayWeatherItemBinding
 
 class TodayWeatherAdapter : ListAdapter<WeatherData, TodayWeatherAdapter.MyViewHolder>(DiffCallback()) {

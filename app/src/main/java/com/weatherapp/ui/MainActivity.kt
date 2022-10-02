@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.weatherapp.R
-import com.weatherapp.data.local.City
 import com.weatherapp.databinding.ActivityMainBinding
 import com.weatherapp.utils.toCelsius
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.allCities.observe(this) {
-            cityAdapter.updateData(it as java.util.ArrayList<City>)
+            cityAdapter.updateData(it)
         }
 
         lifecycleScope.launch {

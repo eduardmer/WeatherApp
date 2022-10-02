@@ -4,7 +4,7 @@
     <data>
         <variable
             name="data"
-            type="com.weatherapp.data.remote.dto.WeatherData" />
+            type="com.weatherapp.data.remote.model.WeatherData" />
         <import type="com.weatherapp.utils.ExtensionKt"/>
     </data>
 

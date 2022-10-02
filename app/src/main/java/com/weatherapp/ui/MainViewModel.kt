@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.weatherapp.data.Repository
-import com.weatherapp.data.local.City
-import com.weatherapp.data.remote.dto.CurrentWeatherResponse
-import com.weatherapp.data.remote.dto.TodayWeatherResponse
+import com.weatherapp.data.local.model.CityDto
+import com.weatherapp.data.remote.model.CurrentWeatherResponse
+import com.weatherapp.data.remote.model.TodayWeatherResponse
 import com.weatherapp.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -17,8 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    private val _allCities = MutableLiveData<List<City>>()
-    val allCities: LiveData<List<City>> = _allCities
+    private val _allCities = MutableLiveData<List<CityDto>>()
+    val allCities: LiveData<List<CityDto>> = _allCities
 
     init {
         getAllCities()
@@ -42,7 +42,7 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
         }
     }
 
-    fun updateSelectedCity(city: City) {
+    fun updateSelectedCity(city: CityDto) {
         viewModelScope.launch {
             repository.updateSelectedCity(city)
         }

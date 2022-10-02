@@ -35,6 +35,6 @@ fun TextView.setTemp(temp: Double) {
 @BindingAdapter("image")
 fun ImageView.setImage(url: String) {
     this.load("$ICON_BASE_URL$url.png") {
-        placeholder(R.drawable.ic_humidity)
+        placeholder(R.drawable.ic_image)
     }
 }
